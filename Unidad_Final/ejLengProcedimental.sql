@@ -1,6 +1,5 @@
 -- Sobre la base de datos empresa_clase (POR EJEMPLO):
 use empresaclase;
-
 -- 1. Crea un procedimiento que devuelva el año actual
 drop procedure if exists añoActual;
 delimiter $$
