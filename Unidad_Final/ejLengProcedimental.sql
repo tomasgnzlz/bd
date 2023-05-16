@@ -9,6 +9,9 @@ begin
 end $$
 delimiter ;
 -- call añoActual();
+
+
+
 -- 2. Crea una función que devuelva el año actual.
 drop function if exists añoActualfuncion;
 delimiter $$
@@ -22,6 +25,7 @@ begin
 end $$
 delimiter ;
 -- select añoActualfuncion();
+
 -- 3. Crea un procedimiento que muestre las tres primeras letras de una cadena pasada como parámetro en mayúsculas.
 drop procedure if exists letras;
 delimiter $$
@@ -31,6 +35,8 @@ begin
 end $$
 delimiter ;
 call letras('tomas');
+
+
 -- 4. Crea un procedimiento que devuelva una cadena formada por dos cadenas, pasadas como parámetros, concatenadas y en mayúsculas.
 drop procedure if exists letras_2;
 delimiter $$
@@ -40,6 +46,8 @@ begin
 end $$
 delimiter ;
 call letras_2('tomas','ariel');
+
+
 -- 5. Crea una función que devuelva el valor de la hipotenusa de un triángulo a partir de los valores de sus lados.
 drop function if exists hipotenusa;
 delimiter $$
@@ -53,6 +61,8 @@ begin
 end $$
 delimiter ;
  -- select hipotenusa(16, 36); ¿?¿?
+ 
+ 
 -- 6. Crea una función que devuelva 1 ó 0 en función de si un número es o no divisible por otro.
 drop function if exists unoCero;
 delimiter $$
@@ -77,6 +87,7 @@ end $$
 delimiter ;
 select unoCero(5,9);
 
+
 -- 7. Crea una función que devuelva el día de la semana (lunes, martes, ...) en función de un número de entrada (1: lunes, 2:martes, ...).
 drop function if exists weekDays;
 delimiter $$
@@ -100,6 +111,7 @@ end $$
 delimiter ;
 -- select weekDays(2);
 
+
 -- 8. Crea una función que devuelva el mayor de tres números que pasamos como parámetros.
 drop function if exists numMayor;
 delimiter $$
@@ -121,9 +133,81 @@ delimiter ;
 -- select numMayor (1,2,3);
 
 -- 9. Crea una función que diga si una palabra, que pasamos como parámetros, es palíndroma.
+-- una palabra palindroma es una palabra que se lee de derecho y del reves de la misma manera. 
+drop function if exists palindroma;
+delimiter $$
+create function palindroma(palabra varchar(60))
+returns varchar(60) -- 0 es palindroma || 1 no es palindroma
+deterministic
+begin
+	declare derecho varchar(60);
+    declare reves varchar(60);
+    declare resultado varchar(60);
+    set derecho = ( select (palabra) );
+    set reves = (select reverse(palabra));
+    -- Si la palabra d izquierda a derecha es la misma que se derecha a izquierda, entonces la palabra es palindroma ,de lo contrario no lo es. 
+    if derecho = reves then
+		set resultado = concat('La palabra: ', palabra, ' es Palindroma');
+        else
+		set resultado = concat('La palabra: ', palabra, ' no es Palindroma');
+	end if;
+    -- Devuelvo el resultado ya que es una funcion. 
+    return resultado;
+end $$
+delimiter ;
+SELECT palindroma('reconocer');
+
 -- 10. Crea un procedimiento que muestre la suma de los primeros n números enteros, siendo n un parámetro de entrada.
+drop procedure if exists suma_n_con_repeat;
+delimiter $$
+create procedure suma_n_con_repeat(in n int)
+begin
+    declare cont,suma int;
+    set cont = 0; -- Declara un contador
+    set suma = 0; -- inicializa una variable con 0
+    repeat
+		begin
+			set suma = suma + cont; -- cada vez que el contador se incrementa este se va sumando con el numero que tenía antes, asi sucesivamente. 
+			set cont = cont + 1;
+		end;
+	until cont>n -- hasta que el contador sea igual que n, se repetirá. 
+    end repeat;
+    select suma;
+end $$
+delimiter ;
+call suma_n_con_repeat(5);
+
+
+delimiter $$
 -- 11. Prepara un procedimiento que muestre la suma de los términos 1/n con n entre 1
 -- y m (1/2 + 1/3 + 1⁄4 +...), siendo m un parámetro de entrada.
+drop procedure if exists GBD_2012_2013_U6_EJER1_11;
+delimiter $$
+create procedure GBD_2012_2013_U6_EJER1_11(in m int)
+begin
+    declare cont, suma decimal (10,2);
+    if m=0 then
+        select 'ERROR, división por cero';
+		else if m = 1 then
+			select 1;
+		else
+			begin
+				set cont = 2;
+				set suma = 0;
+				while cont <= m do
+					begin
+						set suma = suma + 1/cont;
+						set cont = cont + 1;
+					end;
+				end while;
+				select suma;
+			end;
+		end if;
+    end if;
+end
+$$
+delimiter ;
+
 -- 12. Crea una función que determine si un número es primo o no (devolverá 0 ó 1).
 drop function if exists numPrimo;
 delimiter $$
