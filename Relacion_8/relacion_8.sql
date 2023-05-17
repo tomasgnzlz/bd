@@ -52,3 +52,24 @@ select e.nomem
 select e.nomem
 	from empleados e
 		where e.nomem regexp 'A$';
+        
+-- . --> Aquellos nombres que contengan AN y despues 1 caracter cualquiera(si pongo .. serian dos caracteres cuales quiera numeros incluidos)
+select e.nomem
+	from empleados e
+		where lower(e.nomem) regexp 'an.';      
+      
+-- PAra  aquelllos nombres que tienen almenos 2 a. 
+select e.nomem
+	from empleados e
+		where lower(e.nomem) regexp 'a.*a';              
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
