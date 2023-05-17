@@ -19,9 +19,7 @@ create function añoActualfuncion ()
 returns date
 deterministic
 begin
-	return(
-			select curdate() as AñoActual
-		  );
+	return( select curdate() as AñoActual );
 end $$
 delimiter ;
 -- select añoActualfuncion();
@@ -55,9 +53,7 @@ create function hipotenusa(lado1 int, lado2 int)
 returns double
 deterministic
 begin 
-	return(
-		select sqrt( (lado1*lado1) + (lado2*lado2) ) as Hipotenusa
-    );
+	return( select sqrt( (lado1*lado1) + (lado2*lado2) ) as Hipotenusa );
 end $$
 delimiter ;
  -- select hipotenusa(16, 36); ¿?¿?
@@ -95,8 +91,7 @@ create function weekDays(num int)
 returns varchar(30)
 deterministic
 begin 
-	return(
-			(CASE
+	return( (CASE
 				WHEN num = 1 then "Lunes"
                 WHEN num = 2 then "Martes"
                 WHEN num = 3 then "Miercoles"
@@ -106,7 +101,7 @@ begin
                 WHEN num = 7 then "Domingo"
 				ELSE "ERROR, Introduce un n1 correcto(1-7)"
 			END)
-    );
+		);
 end $$
 delimiter ;
 -- select weekDays(2);
@@ -236,7 +231,7 @@ CREATE FUNCTION sumaPrimerosPrimos(m INT)
 RETURNS INT
 deterministic
 BEGIN
-    DECLARE i INT DEFAULT 1;
+    DECLARE i INT DEFAULT 2;
     DECLARE contador INT DEFAULT 0;
     DECLARE suma INT DEFAULT 0;
     WHILE (contador < m) DO
@@ -249,7 +244,7 @@ BEGIN
     RETURN suma;
 END $$
 DELIMITER ;
-SELECT sumaPrimerosPrimos(10);
+SELECT sumaPrimerosPrimos(11);
 -- 14. Crea un procedimiento que almacene en una tabla (primos (id, numero)) los
 -- primeros números primos comprendidos entre 1 y m (m es parámetro de entrada).
 -- 15. Modifica el procedimiento anterior para que se almacene en un parámetro de salida el número de primos almacenados.

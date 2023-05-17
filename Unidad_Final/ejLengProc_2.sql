@@ -17,7 +17,7 @@ begin
 end $$
 delimiter ;
 call listadosueldo();
--- 2. NO SE HACE. NO CAEN CURSORES
+-- 2. 
 drop procedure if exists listadoDeptos;
 delimiter $$
 create procedure listadoDeptos ()
@@ -60,6 +60,7 @@ espacios en blanco). Prepara un procedimiento almacenado que, mediante el uso de
 todos los nombres de usuario y contraseñas.
 7. Prepara un procedimiento almacenado que iguale todas las contraseñas al nombre de usuario.
 */
+
 
 drop procedure if exists nomser;
 delimiter $$

@@ -12,7 +12,7 @@ use gbdturrural2015;
 --    Busca los clientes (todos sus datos) de las 9 primeras poblaciones de la provincia de Málaga (29001 a 29009). ¿?¿?¿ NO LO ENTIENDO
 select *
 	from clientes
-		where codpostalcli rlike '^2900[1-9]';
+		where codpostalcli rlike '^';
 		-- where codpostalcli rlike '^290{2}[1-9]$';
 		-- where codpostalcli rlike '^290{2}[^0]';
           
@@ -21,8 +21,10 @@ select *
 select *
 	from clientes
 		-- where codpostalcli rlike '^290(10|[[01]1-9]|20)';
-		where codpostalcli rlike '^290([12]0|[01][1-9])';
-        
+		-- where codpostalcli rlike '^290([12]0|[01][1-9])';
+        -- where codpostalcli rlike '[29001-29020]';
+        -- where codpostalcli between 29001 and 29020;
+        where codpostalcli regexp '^290[1-9][1-9]';
 -- where codpostalcli rlike '^290[012][01]'; OJO ==> esta expresión daría por válida la cadena 29021
 
 -- 3. Queremos encontrar clientes con direcciones de correo válidas, para ello queremos 
@@ -44,7 +46,7 @@ use empresaclase;
 -- ^ --> Cuando quiero indicar que empiece por algo. 
 select e.nomem
 	from empleados e
-		where e.nomem regexp '^A';
+		where e.nomem not regexp '^[^A]';
         
 -- $ --> Cuando quiero indicar que termine por algo. 
 select e.nomem
